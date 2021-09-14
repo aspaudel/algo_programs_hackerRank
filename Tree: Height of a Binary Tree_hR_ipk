@@ -1,0 +1,28 @@
+static int c = 0, n = 0; static Node r; static boolean con = true;
+	public static int height(Node root) {
+        if(con) {
+            r = root;
+            con = false;    
+        }
+        if(root == null) {
+            return 0;
+        } else {
+            int lD = height(root.left);
+            int rD = height(root.right);
+            
+            if(r == root) {
+                if(lD < rD) {
+                    return rD; 
+                } else {
+                    return lD;
+                }    
+            }
+            else {
+                if(lD < rD) {
+                    return rD + 1; 
+                } else {
+                    return lD + 1;
+                }
+            }  
+        }
+    }
