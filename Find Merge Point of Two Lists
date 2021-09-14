@@ -1,0 +1,22 @@
+static int findMergeNode(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+        LinkedHashMap<Integer, Integer> l = new LinkedHashMap<>();
+        int data = 0;
+        boolean c = false;
+        SinglyLinkedListNode p2 = head2;
+        while(head1 != null) {
+            while(p2 != null) {
+                if(head1 == p2) {
+                    data = head1.data;
+                    c = true;
+                    break;
+                }
+            p2 = p2.next;
+        }
+        if(c) {
+            break;
+        }
+        head1 = head1.next;
+        p2 = head2;
+    }
+    return data;
+}
