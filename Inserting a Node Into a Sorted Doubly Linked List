@@ -1,0 +1,23 @@
+public static DoublyLinkedListNode sortedInsert(DoublyLinkedListNode llist, int data) {
+        DoublyLinkedListNode front = llist;
+        DoublyLinkedListNode prev = null;
+        DoublyLinkedListNode p = new DoublyLinkedListNode(data);
+        while(front != null) {
+            if(front.data > p.data) {
+                if(prev != null) {
+                    prev.next = p;
+                }
+                p.next = front;
+                break;
+            }
+            prev = front;
+            front = front.next;
+        }
+        if(prev == null) {
+            return p;
+        }
+        if(front == null) {
+            prev.next = p;
+        }
+        return llist;
+    }
