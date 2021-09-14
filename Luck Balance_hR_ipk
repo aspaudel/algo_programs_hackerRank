@@ -1,0 +1,23 @@
+public static int luckBalance(int k, List<List<Integer>> contests) {
+        List<Integer> max = new ArrayList<>();
+        int j = 0;
+        int sum = 0;
+        for(List<Integer> i : contests) {
+            if(i.get(1) == 1) {
+                max.add(i.get(0));
+                j++;         
+            } else {
+                sum = sum + i.get(0);
+            }
+        }
+        Collections.sort(max);
+        int size = (k < max.size()) ? k : max.size();
+        for(int i = max.size() - 1 ; i >= 0 ; i--) {
+            if(i >= max.size() - size) {
+                sum = sum + max.get(i);    
+            } else {
+                sum = sum - max.get(i);
+            }
+        }
+        return sum;
+    }
