@@ -1,0 +1,60 @@
+static boolean con = false;
+public static double median(ArrayList<Integer> arr, ArrayList<Integer> lval) {
+        if(con) { 
+        boolean a = false, b = false;
+        for(int i = 0 ; i < arr.size() ; i++) {
+            if(i == lval.get(0)) {
+                int n = arr.get(i);
+                arr.set(i, --n);
+            }
+            if(i == lval.get(lval.size()-1)) {
+                int n = arr.get(i);
+                arr.set(i, ++n);    
+            }
+            if(a && b) {
+                break;
+            }
+        }}
+        con = true;
+        List<Integer> prr = new ArrayList<>();
+        int i = 0;
+            while(i < 200) {
+                if(arr.get(i) != 0) {
+                    prr.add(i);
+                }    
+                i++;
+            }
+        if(lval.size() % 2 == 0) {
+            return (prr.get(prr.size()/2)+prr.get((prr.size()/2) - 1))/2.0;       
+        } else {
+            return prr.get(prr.size()/2);
+        }
+    }
+    public static int activityNotifications(List<Integer> expenditure, int d) {
+        int c = 0;
+        int median = 0;
+        ArrayList<Integer> arr = new ArrayList<>(Collections.nCopies(201, 0));
+        ArrayList<Integer> lval = new ArrayList<>();
+        if(expenditure.size() <= d) {
+            return 0;
+        } 
+        for(int i = 0 ; i < expenditure.size() - d ; i++) {
+            if(i == 0) {
+                for(int j = 0 ; j < d ; j++) {
+                    lval.add(expenditure.get(j)); 
+                }
+                for(int j = 0 ; j < lval.size() ; j++) {
+                    int n = arr.get(lval.get(j));
+                    arr.set(lval.get(j), ++n);
+                }
+            } else {
+                lval.remove(0);
+                lval.add(expenditure.get(i+d-1));
+            }  
+            median = (int)(median(arr, lval)*2.0);  
+            if(expenditure.get(i+d) >= median) {
+                c++;
+            }
+        }
+        return c;
+    }
