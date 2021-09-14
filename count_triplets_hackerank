@@ -1,0 +1,23 @@
+static long countTriplets(List<Long> arr, long r) {
+        long counter = 0;
+        HashMap<Long, Integer> pairs = new HashMap<>();
+        HashMap<Long, Integer> numbers = new HashMap<>();
+        for(int i = arr.size()-1 ; i >= 0 ; i--) {
+            if(pairs.containsKey(arr.get(i)*r)) {
+                counter += pairs.get(arr.get(i)*r);
+            }
+            if(numbers.containsKey(arr.get(i)*r)) {
+                if(pairs.containsKey(arr.get(i))) {
+                    pairs.put(arr.get(i), pairs.get(arr.get(i)) + numbers.get(arr.get(i)*r));
+                } else {
+                    pairs.put(arr.get(i), numbers.get(arr.get(i)*r));
+                } 
+            }
+            if(numbers.containsKey(arr.get(i))) {
+                numbers.put(arr.get(i), numbers.get(arr.get(i)) + 1);
+            } else {
+                numbers.put(arr.get(i), 1);
+            }
+        }
+        return counter;    
+    }
