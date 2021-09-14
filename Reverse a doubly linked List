@@ -1,0 +1,13 @@
+public static DoublyLinkedListNode reverse(DoublyLinkedListNode llist) {
+    DoublyLinkedListNode prev = null;
+    DoublyLinkedListNode current = llist;
+    DoublyLinkedListNode next = llist;
+        while(current != null) {
+            next = current.next;
+            current.next = prev;
+            current.prev = next;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
