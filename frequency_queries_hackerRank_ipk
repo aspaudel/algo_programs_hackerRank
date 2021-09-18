@@ -1,27 +1,24 @@
 static List<Integer> freqQuery(List<List<Integer>> queries) {
         HashMap<Integer, Integer> hm = new HashMap<>();
         List<Integer> output = new ArrayList<>();
+        int[] frequency = new int[queries.size()+1];
         for(List<Integer> arr : queries) {
             switch(arr.get(0)) {
-                case 1 : if(hm.containsKey(arr.get(1))) {
-                    hm.put(arr.get(1), hm.get(arr.get(1))+1);
-                } else {
-                    hm.put(arr.get(1), 1);
-                }
+                case 1 : int f = hm.getOrDefault(arr.get(1), 0);
+                    hm.put(arr.get(1), f+1);
+                    frequency[f+1]++;
+                    frequency[f]--;
                 break;
-                case 2 : if(hm.containsKey(arr.get(1))) {
-                    hm.put(arr.get(1), hm.get(arr.get(1))-1);
-                    if(hm.get(arr.get(1)) == 0) {
-                        hm.remove(arr.get(1));
-                    }
-                }
+                case 2 : 
+                f = hm.getOrDefault(arr.get(1), 0);
+                if(f == 0) break;
+                if(f == 1) hm.remove(arr.get(1));
+                else hm.put(arr.get(1), f-1);
+                frequency[f]--;
+                frequency[f-1]++;
                 break;
-                case 3 : if(hm.containsValue(arr.get(1))) {
-                    output.add(1);
-                }
-                else {
-                    output.add(0);
-                }
+                case 3 : if(arr.get(1) > frequency.length-1) output.add(0);
+                else output.add(frequency[arr.get(1)] > 0 ? 1 : 0);
             }
         }
         return output;
