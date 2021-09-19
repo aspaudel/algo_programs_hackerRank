@@ -1,0 +1,20 @@
+//Code by Edvin He
+static long substrCount(int n, String s) {
+        long c = 0;
+        for(int i = 0 ; i < s.length() ; i++) {
+            c++;
+            for(int j = i+1 ; j < s.length() ; j++) {
+                if(s.charAt(i) != s.charAt(j)) {
+                    if(2*j-i < s.length() && s.substring(i, j).equals(s.substring(j+1,                       2*j-i+1)))  {
+                        c++;
+                        break;
+                    } else {
+                        break;
+                    }
+                } else {
+                    c++;
+                }
+            }
+        }
+        return c;
+    }
