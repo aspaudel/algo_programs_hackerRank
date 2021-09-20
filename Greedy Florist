@@ -1,0 +1,14 @@
+static int getMinimumCost(int k, int[] c) {
+        Arrays.sort(c);
+        int n = c.length - k;
+        int sum = 0;
+        for(int i = n-1 ; i >= 0 ; i--) {
+            int j = ((n-i-1)/k);
+            System.out.println(j);
+            sum = sum + ((2+j)*c[i]);
+        }
+        for(int i = n ; i < c.length ; i++) {
+            sum = sum + c[i];
+        }
+        return sum;
+    }
