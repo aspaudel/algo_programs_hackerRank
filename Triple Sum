@@ -1,0 +1,59 @@
+static void fillArrayList(Set<Integer> set, List<Integer> arr) {
+        for(int i : set) {
+            arr.add(i);
+        }
+    }
+    static long binarySearch(List<Integer> arr, int n, long ab) {
+        int l = 0;
+        int h = arr.size()-1;
+        int mid = 0;
+        while(l <= h) {
+            mid = (l+h)/2;
+            if(n < arr.get(mid)) {
+                h = mid - 1;
+            }
+            if(n > arr.get(mid)) {
+                l = mid + 1;
+            }
+            if(n == arr.get(mid)) {
+                ab = mid+1;
+                break;
+            }
+        }
+        if(ab == -1) {
+            ab = l;
+        }
+        return ab;
+    }
+    static long triplets(int[] a, int[] b, int[] c) {
+        long triplets = 0;
+        Set<Integer> a2 = new TreeSet<>();
+        Set<Integer> b2 = new TreeSet<>();
+        Set<Integer> c2 = new TreeSet<>();
+        List<Integer> arr = new ArrayList<>();
+        List<Integer> brr = new ArrayList<>();
+        List<Integer> crr = new ArrayList<>();
+        for(int i = 0 ; i < a.length ; i++) {
+            a2.add(a[i]);                                                       
+        }
+        for(int i = 0 ; i < b.length ; i++) {
+            b2.add(b[i]);                                                       
+        }
+        for(int i = 0 ; i < c.length ; i++) {
+            c2.add(c[i]);                                                       
+        }
+        fillArrayList(a2, arr);
+        fillArrayList(b2, brr);
+        fillArrayList(c2, crr);
+        Collections.sort(arr);
+        Collections.sort(brr);
+        Collections.sort(crr);
+        long ab = -1, bc = -1;
+        for(int i = 0 ; i < brr.size() ; i++) {
+            ab = binarySearch(arr, brr.get(i), ab);
+            bc = binarySearch(crr, brr.get(i), bc);
+            triplets += (ab*bc);
+            ab = -1; bc = -1;
+        }
+        return triplets;
+    }
