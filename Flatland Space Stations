@@ -1,0 +1,11 @@
+static int flatlandSpaceStations(int n, int[] c) {
+        int max = 0;
+        Arrays.sort(c);
+        for(int i = 1 ; i < c.length ; i++) {
+            max = Math.max(max, (c[i] - c[i-1])/2);
+        }
+        System.out.println(max);
+        max = Math.max(max, c[0]);
+        max = Math.max(max, n-1 - c[c.length-1]);
+        return max;
+    }
