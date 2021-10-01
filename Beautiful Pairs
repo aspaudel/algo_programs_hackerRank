@@ -1,0 +1,27 @@
+public static int beautifulPairs(List<Integer> A, List<Integer> B) {
+        int[] arr = new int[1001];
+        int[] brr = new int[1001];
+        int pairs = 0;
+        boolean con = true;
+        for(int i : A) {
+            arr[i]++;
+        }
+        for(int i : B) {
+            brr[i]++;
+        }
+        for(int i = 0 ; i < arr.length ; i++) {
+            if(arr[i] > 0 || brr[i] > 0) {
+                pairs += (arr[i] < brr[i] ? arr[i] : brr[i]);
+                if(con) {
+                    if(arr[i] != brr[i]) {
+                        con = false;
+                    }
+                }    
+            }
+        }
+        if(!con) {
+            return pairs + 1;
+        } else {
+            return pairs - 1;
+        }
+    }
