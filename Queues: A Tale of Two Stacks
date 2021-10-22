@@ -1,0 +1,43 @@
+class MyQueue {
+    Stack<Integer> s1 = new Stack<Integer>();
+    Stack<Integer> s2 = new Stack<Integer>();
+    void enqueue(int n) {
+        s1.push(n);
+    }
+    void dequeue() {
+        if(s2.isEmpty()) {
+            while(!s1.isEmpty()) {
+                s2.add(s1.pop());
+            }    
+        }
+        s2.pop();
+    }
+    int peek() {
+        if(s2.isEmpty()) {
+            while(!s1.isEmpty()) {
+                s2.add(s1.pop());
+            }
+            return s2.peek();    
+        }
+        return s2.peek();
+    }
+}
+public class Solution {
+    public static void main(String[] args) {
+        MyQueue queue = new MyQueue();
+
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            int operation = scan.nextInt();
+            if (operation == 1) { // enqueue
+              queue.enqueue(scan.nextInt());
+            } else if (operation == 2) { // dequeue
+              queue.dequeue();
+            } else if (operation == 3) { // print/peek
+              System.out.println(queue.peek());
+            }
+        }
+        scan.close();
+    }
