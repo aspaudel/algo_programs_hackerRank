@@ -1,0 +1,50 @@
+class Node {
+    int data;
+    Node left;
+    Node right;
+    Node(int n) {
+        data = n;
+    }
+}
+class Result {
+   static Node root;
+    public static Node create(Node root, List<List<Integer>> indexes) {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        for(List<Integer> arr : indexes) {
+            Node temp = queue.poll();
+            if(arr.get(0) != -1) {
+                temp.left = new Node(arr.get(0));
+                queue.add(temp.left);
+            }
+            if(arr.get(1) != -1) {
+                temp.right = new Node(arr.get(1));
+                queue.add(temp.right);
+            }
+        }
+        return root;
+    }
+    public static void swap(Node root, int k, int level, List<Integer> l) {
+        if(root != null) {
+            if(level % k == 0) {
+                Node temp = root.left;
+                root.left = root.right;
+                root.right = temp;
+            }
+            swap(root.left, k, level+1, l);
+            l.add(root.data);
+            swap(root.right, k, level+1, l);
+        }
+    }
+    public static List<List<Integer>> swapNodes(List<List<Integer>> indexes, List<Integer> queries) {
+        root = new Node(1);
+        root = create(root, indexes);
+        List<List<Integer>> result = new ArrayList<>();
+        for(int k : queries) {
+            List<Integer> l = new ArrayList<>();
+            swap(root, k, 1, l);
+            result.add(l);
+        }
+        return result;
+    }
+}
