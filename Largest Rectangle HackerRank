@@ -1,0 +1,78 @@
+static Stack<Integer> stack = new Stack<>();
+    public static void lefty(List<Integer> h, List<Integer> left) {
+        for(int i = 0 ; i < h.size() ; i++) {
+            if(stack.isEmpty()) {
+                stack.push(i);
+                left.add(i);
+                continue;        
+            }
+            if(h.get(i) > h.get(stack.peek())) {
+                left.add(stack.peek()+1);
+                stack.push(i);
+            } else {
+                while(!stack.isEmpty()) {
+                    int n = stack.pop();
+                    if(!stack.isEmpty()) {
+                        if(h.get(i) > h.get(stack.peek())) {
+                            left.add(stack.peek()+1);
+                            stack.push(i);
+                            break;    
+                        } else {
+                            continue;
+                        }
+                    }
+                }
+                if(stack.isEmpty()) {
+                    stack.push(i);
+                    left.add(0);
+                }
+            }
+        }
+    }
+    public static void righty(List<Integer> h, List<Integer> right) {
+        stack.clear();
+        List<Integer> tright = new ArrayList<>();
+        for(int i = h.size()-1 ; i >= 0 ; i--) {
+            if(stack.isEmpty()) {
+                stack.push(i);
+                tright.add(i);
+                continue;        
+            }
+            if(h.get(i) > h.get(stack.peek())) {
+                tright.add(stack.peek()-1);
+                stack.push(i);
+            } else {
+                while(!stack.isEmpty()) {
+                    int n = stack.pop();
+                    if(!stack.isEmpty()) {
+                        if(h.get(i) > h.get(stack.peek())) {
+                            tright.add(stack.peek()-1);
+                            stack.push(i);
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+                }
+            }
+            if(stack.isEmpty()) {
+                stack.push(i);
+                tright.add(h.size()-1);
+            }
+        }
+        for(int i = tright.size()-1 ; i >= 0 ; i--) {
+            right.add(tright.get(i));
+        }
+    }
+    public static long largestRectangle(List<Integer> h) {
+        List<Integer> left = new ArrayList<>();
+        List<Integer> right = new ArrayList<>();
+        lefty(h, left);
+        righty(h, right);
+        int max = 0;
+        for(int i = 0 ; i < left.size() ; i++) {
+            int area = (right.get(i)-left.get(i)+1) * h.get(i);
+            if(max < area) max = area;
+        }
+        return max;
+    }
