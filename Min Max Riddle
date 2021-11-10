@@ -1,0 +1,28 @@
+O(logMN^2):--
+static long[] riddle(long[] arr) {
+        long[] res = new long[arr.length];
+        int n;
+        int num;
+        long max = 0;
+        long min = Integer.MAX_VALUE;
+        for(int i = 0 ; i < arr.length; i++) {
+            n = i+1;
+            num = 0;
+            max = 0;
+            for(int j = 0 ; j < arr.length-i ; j++) {
+                int m = n;
+                int t_num = num;
+                num++;
+                min = Integer.MAX_VALUE;
+                while(m != 0) {
+                    if(arr[t_num] < min) min = arr[t_num];
+                    t_num++;
+                    m--;
+                }
+                if(max < min) max = min;
+            }
+            res[i] = max;
+        }
+        return res;
+    }
+    
