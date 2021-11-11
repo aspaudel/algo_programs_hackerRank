@@ -1,4 +1,4 @@
-O(logMN^2):--
+O(MN^2):--
 static long[] riddle(long[] arr) {
         long[] res = new long[arr.length];
         int n;
@@ -26,3 +26,28 @@ static long[] riddle(long[] arr) {
         return res;
     }
     
+O(MlogN):--
+static long[] riddle(long[] arr) {
+        long[] res = new long[arr.length];
+        List<Long> list = new ArrayList<>();
+        for(int i = 0 ; i < arr.length ; i++) {
+            list.add(arr[i]);    
+        }
+        int index = 0;
+        res[index] = Collections.max(list);
+        long min = 0;
+        long max;
+        while(list.size() != 1) {
+            max = 0;
+            for(int i = 0 ; i < list.size()-1 ; i++) {
+                if(list.get(i) > list.get(i+1)) min = list.get(i+1);
+                else min = list.get(i);
+                list.set(i, min);
+                if(min > max) max = min;
+            }
+            list.remove(list.size()-1);
+            index++;
+            res[index] = max;
+        }
+        return res;
+    }
