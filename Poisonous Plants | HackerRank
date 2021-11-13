@@ -1,0 +1,19 @@
+public static int poisonousPlants(List<Integer> p) {
+        Stack<ArrayList> stack = new Stack<>();
+        int daysMax = 0;
+        int days;
+        for(int i : p) {
+            days = 0;
+            while(!stack.isEmpty() && (int)stack.peek().get(0) >= i) {
+                days = Math.max(days, (int)stack.pop().get(1));
+            }
+            if(!stack.isEmpty()) {
+                days += 1;
+            } else {
+                days = 0;
+            }
+            daysMax = Math.max(daysMax, days);
+            stack.push(new ArrayList<Integer>(Arrays.asList(i, days)));
+        }
+        return daysMax;
+    }
