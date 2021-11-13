@@ -1,3 +1,4 @@
+//Neither of them passes all the test cases XD
 O(MN^2):--
 static long[] riddle(long[] arr) {
         long[] res = new long[arr.length];
