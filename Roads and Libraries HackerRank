@@ -1,0 +1,38 @@
+    public static int dfs(List<List<Integer>> graph, int city, Set<Integer> isVisited) {
+        isVisited.add(city);
+        int ans = 1;
+        for(int i = 0 ; i < graph.get(city).size() ; i++) {
+            if(!isVisited.contains(graph.get(city).get(i))) {
+                ans += dfs(graph, graph.get(city).get(i), isVisited);       
+            } 
+        }
+        return ans;
+        }
+
+    public static long roadsAndLibraries(int n, int c_lib, int c_road, List<List<Integer>> cities) {
+        long cost = 0;
+        Set<Integer> isVisited = new HashSet<>();
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i = 0 ; i <= n ; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for(int i = 0 ; i < cities.size() ; i++) {
+            graph.get(cities.get(i).get(0)).add(cities.get(i).get(1));
+            graph.get(cities.get(i).get(1)).add(cities.get(i).get(0));
+        }
+        List<Integer> dfs = new ArrayList<>();
+        for(int i = 1 ; i <= n ; i++) {
+            if(graph.get(i).size() > 0 && !isVisited.contains(i)) {
+                dfs.add(dfs(graph, i, isVisited));
+            } else if(graph.get(i).size() == 0) {
+                dfs.add(1);
+            }
+        }
+        System.out.println("dfs: "+dfs);
+        for(int i = 0 ; i < dfs.size() ; i++) {
+            cost += Math.min(((dfs.get(i) - 1)*c_road) + c_lib, dfs.get(i)*c_lib);
+        }
+        isVisited.clear();
+        return cost;
+    }
+}
