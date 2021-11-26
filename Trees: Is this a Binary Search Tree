@@ -1,0 +1,18 @@
+boolean checkBST(Node root) {
+        if(root != null) {
+            if(root.left != null) {
+                if(root.data < root.left.data) {
+                     return false;   
+                }
+            }
+            if(root.right != null) {
+                if(root.data > root.right.data) {
+                    return false;            
+                }
+            }
+            if(!checkBST(root.left) || !checkBST(root.right)) {
+                return false;
+            }
+        } 
+        return true;
+    }
