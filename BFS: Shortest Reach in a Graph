@@ -1,0 +1,48 @@
+//Dose not pass all the test cases. LOL
+public class Solution {
+    public static class Graph {
+        List<List<Integer>> graph = new ArrayList<>();
+        boolean[] isVisited;
+        public Graph(int size) {
+            for(int i = 0 ; i < size ; i++) {
+                graph.add(new ArrayList<>());
+            }
+        }
+        public void addEdge(int first, int second) {
+            graph.get(first).add(second);
+            graph.get(second).add(first);
+        }
+        
+        public int[] shortestReach(int startId) { 
+            int[] arr = new int[graph.size()];
+            isVisited = new boolean[graph.size()];
+            Queue<Integer> queue = new LinkedList<>();
+            queue.add(startId);
+            isVisited[startId] = true; 
+            int m = 6;
+            int i = 0;
+            while(!queue.isEmpty()) {
+                Integer node = queue.poll();
+                List<Integer> childList = graph.get(node);
+                i++;
+                boolean con = false;
+                for(Integer child : childList) {
+                    if(!isVisited[child]) {
+                        queue.add(child);
+                        isVisited[child] = true;
+                        arr[child] = m*i;
+                        con = true;
+                    }
+                }
+                if(!con) {
+                    i--;
+                }
+            }
+            for(i = 0 ; i < arr.length ; i++) {
+                if(arr[i] == 0) {
+                    arr[i] = -1;
+                }
+            }
+            return arr;
+        }
+    }
