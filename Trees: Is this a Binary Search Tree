@@ -1,3 +1,4 @@
+//not yet tested with the main function
 boolean checkBST(Node root) {
         if(root != null) {
             if(root.left != null) {
