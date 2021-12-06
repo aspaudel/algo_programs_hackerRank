@@ -1,0 +1,28 @@
+public static void topView(Node root) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        Queue<List<Object>> queue = new LinkedList<>();
+        queue.add(new ArrayList<>(Arrays.asList(root, 0)));
+        int max = 0;
+        int min = Integer.MAX_VALUE;
+        while(!queue.isEmpty()) {
+            List<Object> list = queue.poll();
+            Node node = (Node)list.get(0);
+            int index = (int)list.get(1);
+            if(max < index) max = index;
+            if(min > index) min = index;
+            if(!hm.containsKey(index)) {
+                hm.put(index, node.data);
+            }
+            if(node.left != null) {
+                queue.add(new ArrayList<>(Arrays.asList(node.left, index-1)));
+            }
+            if(node.right != null) {
+                queue.add(new ArrayList<>(Arrays.asList(node.right,  index+1)));
+            }
+        }
+        for(int i = min ; i <= max ; i++) {
+            if(hm.containsKey(i)) {
+                System.out.print(hm.get(i)+" ");
+            }
+        }
+    }
