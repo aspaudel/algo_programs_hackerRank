@@ -1,0 +1,26 @@
+public static List<Integer> getMax(List<String> operations) {
+        Stack<Integer> max = new Stack<>();
+        Stack<Integer> stack = new Stack<>();
+        List<Integer> res = new ArrayList<>();
+        for(String s : operations) {
+            if(s.charAt(0) == '1') {
+                String str = "";
+                for(int i = 2 ; i < s.length() ; i++) {
+                    str += s.charAt(i);
+                }
+                Integer i = Integer.parseInt(str);
+                stack.push(i);
+                if(max.isEmpty() || max.peek() < i) {
+                    max.push(i);
+                } else {
+                    max.push(max.peek());
+                }
+            } else if(s.charAt(0) == '2') {
+                max.pop();
+                stack.pop();
+            } else if(s.charAt(0) == '3') {
+                res.add(max.peek());
+            }
+        }
+        return res;
+    }
