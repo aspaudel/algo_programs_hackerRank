@@ -1,0 +1,37 @@
+public static int equalStacks(List<Integer> h1, List<Integer> h2, List<Integer> h3) {
+        Stack<Integer> sh1 = new Stack<>();
+        Stack<Integer> sh2 = new Stack<>();
+        Stack<Integer> sh3 = new Stack<>();
+        int cum = 0;
+        for(int i = h1.size()-1 ; i >=0  ; i--) {
+            cum += h1.get(i);
+            sh1.push(cum);        
+        }
+        cum = 0;
+        for(int i = h2.size()-1 ; i >=0  ; i--) {
+            cum += h2.get(i);
+            sh2.push(cum);        
+        }
+        cum = 0;
+        for(int i = h3.size()-1 ; i >=0  ; i--) {
+            cum += h3.get(i);
+            sh3.push(cum);        
+        } 
+        int s1h, s2h, s3h = 0;
+        while(true) {
+            if(sh1.isEmpty() || sh2.isEmpty() || sh3.isEmpty()) {
+                return 0;
+            }
+            s1h = sh1.peek();
+            s2h = sh2.peek();
+            s3h = sh3.peek();
+            if(s1h == s2h && s2h == s3h) {
+                return s1h;
+            }
+            int min = Math.min(s1h, s2h);
+            min = Math.min(min, s3h);
+            if(s1h > min) sh1.pop();
+            if(s2h > min) sh2.pop();
+            if(s3h > min) sh3.pop();
+        }
+    }        
