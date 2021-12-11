@@ -1,0 +1,20 @@
+public static int cookies(int k, List<Integer> A) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        heap.addAll(A);      
+        int counter = 0; 
+        while(true) {
+            int a = heap.poll();
+            if(a >= k) {
+                break;
+            } 
+            if(heap.isEmpty()) {
+                return -1;
+            }
+            else {
+                int b = heap.poll();
+                heap.add(a+(b*2));
+                counter++;    
+            }
+        }
+        return counter;
+    }
