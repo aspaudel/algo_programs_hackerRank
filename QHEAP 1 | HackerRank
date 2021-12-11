@@ -1,0 +1,88 @@
+*****Using Priority Queue*****
+public static void main(String[] args) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        Scanner in = new Scanner(System.in);
+        int Q = in.nextInt();
+        for(int i = 0 ; i < Q ; i++) {
+            int q = in.nextInt(); {
+                switch(q) {
+                    case 1: heap.add(in.nextInt());
+                    break;
+                    case 2: heap.remove(in.nextInt());
+                    break;
+                    case 3: System.out.println(heap.peek());
+                }
+            }
+        }
+    }
+*********************************************************************************************
+5/19 test cases failed!
+Custom implementation using ArrayList
+static void heapifyUp(List<Integer> heap) {
+        int i = (heap.size()-2)/2;
+        int j = heap.size()-1;
+        while(heap.get(j) < heap.get(i)) {
+            int t = heap.get(j);
+            heap.set(j, heap.get(i));
+            heap.set(i, t);
+            j = i;
+            i = (i-1)/2;
+            if(i < 0) break;
+        }
+    }
+    
+    static void heapifyDown(List<Integer> heap, int i) {
+        while(true) {
+            int a = 0 ,b = 0;
+            try {
+                a = heap.get((i*2)+1);
+            } catch(Exception e) {
+                break;
+            }
+            try {
+                b = heap.get((i*2)+2);
+            } catch(Exception e) {
+                if(heap.get(i) > a) {
+                    int t = heap.get(i);
+                    heap.set(i, heap.get(i*2)+1);
+                    heap.set((i*2)+1, t);
+                }
+                break;
+            }
+            int index = (a < b) ? (i*2)+1 : (i*2)+2;
+            int t = heap.get(i);
+            heap.set(i, heap.get(index));
+            heap.set(index, t);
+            i = index;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int Q = in.nextInt();
+        List<Integer> heap = new ArrayList<>();
+        for(int i = 0 ; i < Q ; i++) {
+            int q = in.nextInt();
+            if(q == 1) {
+                int a = in.nextInt();
+                heap.add(a);    
+                heapifyUp(heap);      
+            }
+            if(q == 2) {
+                int a = in.nextInt();
+                int index = 0;
+                for(int j = 0 ; j < heap.size() ; j++) {
+                    if(heap.get(j) == a) {
+                        heap.set(j, heap.get(heap.size()-1));
+                        index = j;
+                        break;
+                    }
+                }
+                heap.remove(heap.size()-1);
+                heapifyDown(heap, index);
+            }
+            if(q == 3) {
+                System.out.println(heap.get(0));
+            }
+        }
+    }
