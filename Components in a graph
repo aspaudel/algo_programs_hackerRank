@@ -1,0 +1,43 @@
+public static List<Integer> componentsInGraph(List<List<Integer>> gb) {
+        int size = 0;
+        for(int i = 0 ; i < gb.size() ; i++) {
+            if(gb.get(i).get(0) > size) size = gb.get(i).get(0);
+            if(gb.get(i).get(1) > size) size = gb.get(i).get(1);
+        }
+        List<List<Integer>> arr = new ArrayList<>();
+        for(int i = 0 ; i <= size ; i++) {
+            arr.add(new ArrayList<>());
+        }
+        for(int i = 0 ; i < gb.size() ; i++) {
+            arr.get(gb.get(i).get(0)).add(gb.get(i).get(1));
+            arr.get(gb.get(i).get(1)).add(gb.get(i).get(0));
+        }
+        
+        int min = Integer.MAX_VALUE;
+        int max = 0;
+        int c = 0;
+        boolean[] isVisited = new boolean[size+1];
+        for(int i = 1 ; i <= size ; i++) {
+            if(!isVisited[i]) {
+            Stack<Integer> stack = new Stack();
+            stack.push(i);
+            isVisited[i] = true;
+            while(!stack.isEmpty()) {
+                int v = stack.pop();
+                System.out.println(v);
+                List<Integer> brr = arr.get(v);
+                c++;
+                for(int e : brr) {
+                    if(!isVisited[e]) {
+                        stack.push(e);
+                        isVisited[e] = true;     
+                    }       
+                }
+            }}
+            System.out.println("c: "+c);
+            if(c > max) max = c;
+            if(c < min && c != 1 && c!= 0) min = c;
+            c = 0;
+        }
+        return new ArrayList<Integer>(Arrays.asList(min, max));
+    }
