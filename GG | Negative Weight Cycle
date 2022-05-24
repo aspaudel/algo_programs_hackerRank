@@ -1,0 +1,24 @@
+//Bellman-Ford Algorithm
+class Solution
+{
+    public int isNegativeWeightCycle(int n, int[][] edges)
+    {
+        HashMap<Integer, Integer> nodeScores = new HashMap<>();
+        for(int i = 0 ; i < n ; i++) {
+            if(i == 0) {
+                nodeScores.put(i, 0);
+            } else {
+                nodeScores.put(i, Integer.MAX_VALUE/2); //Using the max value will make the integer negative when a non zero integer is added to it that why we have divided it by 2
+            }
+        }
+        for(int i = 0 ; i < n ; i++) {
+            for(int j = 0 ; j < edges.length ; j++) {
+                if(nodeScores.get(edges[j][0]) + edges[j][2] < nodeScores.get(edges[j][1])) {
+                    if(i == n-1) return 1; // for the last loop to check the cycle. n-2 is the last loop to fint the relaxation though
+                    nodeScores.put(edges[j][1], nodeScores.get(edges[j][0]) + edges[j][2]);
+                }   
+            }
+        }
+        return 0;
+    }
+}
